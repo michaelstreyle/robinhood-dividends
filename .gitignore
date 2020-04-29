@@ -126,13 +126,11 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-<<<<<<< HEAD
-=======
->>>>>>> origin/master
 
 # Spyder project settings
 .spyderproject
 .spyproject
+junk.py
 
 # Rope project settings
 .ropeproject
@@ -145,14 +143,5 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-# Pyre type checker
-.pyre/
-<<<<<<< HEAD
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-=======
->>>>>>> origin/master
+**/junk.py
+*/junk.py

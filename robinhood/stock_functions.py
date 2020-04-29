@@ -15,6 +15,8 @@ class Robinhood():
         self.username = os.getenv('ROBIN_USERNAME')
         self.password = os.getenv('ROBIN_PASSWORD')
         robin_stocks.login(self.username, self.password)
+        self.holdings = robin_stocks.build_holdings()
+        self.ticker_map = {self.holdings[v]['name']:v for v in self.holdings.keys()}
 
     def get_holdings_df(self):
         """Gets the currently owned stocked including
@@ -26,31 +28,40 @@ class Robinhood():
                 Current Equity
 
         """
-        my_stocks = robin_stocks.build_holdings()
-        df = pd.DataFrame.from_dict(my_stocks, orient='index')[['name', 'quantity', 'average_buy_price', 'price', 'pe_ratio', 'equity']]
+        df = pd.DataFrame.from_dict(self.holdings, orient='index')[['name', 'quantity', 'average_buy_price', 'price', 'pe_ratio', 'equity']]
         return df.head()
 
+    def get_dividends(self):
+        """Gets total and YTD Dividend totals for each stock
+
+        """
+        div_dict = {}
+        my_dividends = robin_stocks.account.get_dividends()
+        for n in my_dividends:
+            ticker = robin_stocks.stocks.get_symbol_by_url(n['instrument'])
+            if ticker in div_dict.keys():
+                div_dict[n['payable_date']] = {'ticker':ticker, 'amount': n['amount'], 'rate':n['rate'], 'position':n['position']}
+            else:
+                div_dict[n['payable_date']] = {}
+                div_dict[n['payable_date']] = {'ticker':ticker, 'amount': n['amount'], 'rate':n['rate'], 'position':n['position']}
+        return div_dict
+
+    def dividend_summary(self):
+        """ Returns a yearly total of dividend payments for each holding
+
+        """
+        d = self.get_dividends()
+        df = pd.DataFrame.from_dict(d, orient='index')[['ticker', 'amount']].astype({'amount':'float'})
+        df.index = pd.to_datetime(df.index)
+        div_summary = df.groupby([df.index.year, df.ticker]).sum()
+        return div_summary
+        #print(div_summary.sum())
 
 
-def get_dividends_df(username, password):
-    """Gets total and YTD Dividend totals for each stock
-
-    """
-    div_dict = {}
-    robin_stocks.login(username,password)
-    my_dividends = robin_stocks.account.get_dividends()
-    for n in my_dividends:
-        name = robin_stocks.stocks.get_name_by_url(n['instrument'])
-        if name in div_dict.keys():
-            div_dict[name][n['payable_date']] = {'amount': n['amount'], 'rate':n['rate'], 'position':n['position']}
-        else:
-            div_dict[name] = {}
-            div_dict[name][n['payable_date']] = {'amount': n['amount'], 'rate':n['rate'], 'position':n['position']}
-    return pd.DataFrame.from_dict(div_dict, orient='index')
-
-#robin_stocks.login(os.getenv('ROBIN_USERNAME'),os.getenv('ROBIN_PASSWORD'))
 R = Robinhood()
-print(R.get_holdings_df())
+d = R.dividend_summary()
+
+
 
 
 #robin_stocks.stocks.get_historicals - use this for graphs
