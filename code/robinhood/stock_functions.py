@@ -16,6 +16,7 @@ class Robinhood():
         self.password = os.getenv('ROBIN_PASSWORD')
         robin_stocks.login(self.username, self.password)
         self.holdings = robin_stocks.build_holdings()
+        self.portfolio = robin_stocks.build_user_profile()
         self.ticker_map = {self.holdings[v]['name']:v for v in self.holdings.keys()}
 
     def get_holdings_df(self):
@@ -55,11 +56,14 @@ class Robinhood():
         df.index = pd.to_datetime(df.index)
         div_summary = df.groupby([df.index.year, df.ticker]).sum()
         return div_summary
+    
+    def show_value(self):
+        return (self.portfolio['equity'], self.portfolio['cash'])
 
 
 
 R = Robinhood()
-d = R.get_dividends()
+print(R.show_value())
 
-print(divs)
+
 #robin_stocks.stocks.get_historicals - use this for graphs
