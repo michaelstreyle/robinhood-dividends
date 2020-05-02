@@ -24,6 +24,7 @@ django-crispy-forms = "*"
 django-extensions = "*"
 coreapi = "*"
 python-twitter = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.6"
