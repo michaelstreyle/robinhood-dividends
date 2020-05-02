@@ -6,7 +6,7 @@ from django.db.models import F, Sum, Count
 from django.db.models.functions import Cast
 from django.db.models import FloatField
 
-from .models import Tickers, Holdings, Dividends
+from .models import Tickers, Holdings, Dividends, CurrentValue
 #from .serializers import TickerSerializer, HoldingsSerializer, DividendsSerializer 
 
 
@@ -17,8 +17,9 @@ from .models import Tickers, Holdings, Dividends
 def home(request):
     # queryset = Holdings.objects.all()
     # serializer_class = HoldingsSerializer
+    value = CurrentValue.objects
     holdings = Holdings.objects
-    return render(request, 'robinhood/home.html', {'holdings':holdings})
+    return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value})
 
 # class DividendsByYearViewSet(ModelViewSet):
 #     """ Here we want to summarize the Dividends by Year and by Ticker

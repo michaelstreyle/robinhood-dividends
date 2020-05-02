@@ -6,7 +6,7 @@ import robin_stocks
 
 from django.core.management import BaseCommand
 from django.db import transaction
-from ...models import Tickers, Holdings, Dividends
+from ...models import Tickers, Holdings, Dividends, CurrentValue
 
 
 
@@ -61,9 +61,9 @@ class Robinhood():
         df.index = pd.to_datetime(df.index)
         div_summary = df.groupby([df.index.year, df.ticker]).sum()
         return div_summary
-        
+
     def show_value(self):
-        return (self.portfolio['equity'], self.portfolio['cash'])
+        return {'equity': self.portfolio['equity'], 'cash':self.portfolio['cash']}
 
 
 
@@ -79,12 +79,14 @@ class Command(BaseCommand):
         Tickers.objects.all().delete()
         Holdings.objects.all().delete()
         Dividends.objects.all().delete()
+        CurrentValue.objects.all().delete()
 
         if options['mock']:
             print('this would be fake data')
             holdings = pd.DataFrame()
             tickers_owned = []
             dividends = {}
+            value = {}
         else:
             #instantiate a Robinhood Class instance
             R = Robinhood()
@@ -92,6 +94,7 @@ class Command(BaseCommand):
             tickers_owned = holdings.index
             # get our dividend history
             dividends = R.get_dividends()
+            value = R.show_value()
 
         # add stocks in our portfolio to the Tickers model
         Tickers.objects.bulk_create(
@@ -130,3 +133,7 @@ class Command(BaseCommand):
         for record in dividends
         ]
         Dividends.objects.bulk_create(divs)
+
+        CurrentValue.objects.create(equity=value['equity'], cash=value['cash'])
+
+

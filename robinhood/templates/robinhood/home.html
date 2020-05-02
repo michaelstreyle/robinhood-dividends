@@ -45,6 +45,28 @@
 
     <div class="album py-5 bg-dark">
       <div class="container">
+        <h2 style="text-align:center;color:white">Total Value</h2>
+        <br>
+        <div class="row">
+
+          {% for account in value.all %}
+          <div class="col-md-10">
+            <div class="card mb-4 box-shadow">
+              <div class="card-body">
+                <h3 class="card-text"> Account Value: {{ account.equity }}       Cash: {{ account.cash }}</h3>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="album py-5 bg-dark">
+      <div class="container">
         <h2 style="text-align:center;color:white">Current Holdings</h2>
         <br>
         <div class="row">

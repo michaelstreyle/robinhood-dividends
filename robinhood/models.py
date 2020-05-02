@@ -35,3 +35,7 @@ class Dividends(models.Model):
 
     def __str__(self):
         return 'Dividend Payment on %s from %s' % (self.date, self.ticker)
+
+class CurrentValue(models.Model):
+    equity = models.FloatField()
+    cash = models.FloatField()
