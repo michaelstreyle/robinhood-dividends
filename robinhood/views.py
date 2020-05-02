@@ -28,3 +28,13 @@ def home(request):
 
 #     divs = Dividends.objects.all()
 
+
+def dividends(request):
+    # queryset = Holdings.objects.all()
+    # serializer_class = HoldingsSerializer
+    dividends = Dividends.objects  #instead, i should group by year and company
+    return render(request, 'robinhood/dividends.html', {'dividends':dividends})
+
+
+def sentiments(request):
+    return ''

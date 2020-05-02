@@ -38,22 +38,22 @@
 
     <section class="jumbotron text-center"  style="background-color:rgb(39, 189, 47);">
       <div class="container">
-        <h1 class="jumbotron-heading">Robinhood Dividend Investing Overview</h1>
-        <p class="lead text-muted">Welcome to my dividend investing portal, where there is no temptation to sell!</p>
+        <h1 class="jumbotron-heading">Sentiments</h1>
+        <p class="lead text-muted">woohoo</p>
       </div>
     </section>
 
     <div class="album py-5 bg-dark">
       <div class="container">
-        <h2 style="text-align:center;color:white">Current Holdings</h2>
+        <h2 style="text-align:center;color:white">Check out what people are saying on Twitter</h2>
         <br>
         <div class="row">
 
-          {% for stock in holdings.all %}
+          {% for stock in dividends.all %}
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
               <div class="card-body">
-                <p class="card-text">{{ stock.ticker }} - {{ stock.equity }}</p>
+                <p class="card-text">{{ stock }}</p>
               </div>
             </div>
           </div>
