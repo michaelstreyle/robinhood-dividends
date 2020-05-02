@@ -10,9 +10,6 @@ from .models import Tickers, Holdings, Dividends, CurrentValue
 #from .serializers import TickerSerializer, HoldingsSerializer, DividendsSerializer 
 
 
-# class TickerViewSet(ModelViewSet):
-#     queryset = Tickers.objects.all()
-#     serializer_class = TickerSerializer
 
 def home(request):
     # queryset = Holdings.objects.all()
@@ -21,20 +18,21 @@ def home(request):
     holdings = Holdings.objects
     return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value})
 
-# class DividendsByYearViewSet(ModelViewSet):
-#     """ Here we want to summarize the Dividends by Year and by Ticker
-
-#     """
-#     serializer_class = DividendsSerializer
-
-#     divs = Dividends.objects.all()
 
 
 def dividends(request):
-    # queryset = Holdings.objects.all()
-    # serializer_class = HoldingsSerializer
-    dividends = Dividends.objects  #instead, i should group by year and company
-    return render(request, 'robinhood/dividends.html', {'dividends':dividends})
+    byticker = Dividends.objects.values('ticker__ticker')\
+    .annotate(yearlysum = Sum('amount'))\
+    .order_by('-yearlysum')\
+    .values('ticker__ticker', 'yearlysum')
+
+    yearly = Dividends.objects.values('date')\
+    .annotate(year = ExtractYear('date'))\
+    .values('year')\
+    .annotate(yearsum = Sum('amount'))\
+    .values('year', 'yearsum')
+    return render(request, 'robinhood/dividends.html', {'dividends': byticker, 'dividends_year': yearly})
+
 
 
 def sentiments(request):

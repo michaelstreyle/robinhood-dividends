@@ -39,13 +39,20 @@
     <section class="jumbotron text-center"  style="background-color:rgb(39, 189, 47);">
       <div class="container">
         <h1 class="jumbotron-heading">Dividends</h1>
-        <p class="lead text-muted">woohoo</p>
       </div>
     </section>
 
+
+
     <div class="album py-5 bg-dark">
+          {% for y in dividends_year.all %}
+            <h3 style="text-align:center;color:white"> Total Dividend Income in {{y.year}} is ${{y.yearsum}}</h3>  
+          {% endfor %}
       <div class="container">
-        <h2 style="text-align:center;color:white">Summary of Dividend payments</h2>
+        <br>
+        <hr style="border: 1px solid rgb(39, 189, 47);" />
+        <br>
+        <h1 style="text-align:center;color:white">Dividend Totals by Ticker</h1>
         <br>
         <div class="row">
 
@@ -53,7 +60,8 @@
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
               <div class="card-body">
-                <p class="card-text">{{ stock.date }} - {{ stock.amount }}</p>
+                <h3> {{ stock.ticker__ticker }} </h3>
+                <p class="card-text"> $ {{stock.yearlysum }} </p>
               </div>
             </div>
           </div>
