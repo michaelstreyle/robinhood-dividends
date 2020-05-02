@@ -61,15 +61,5 @@ class Robinhood():
 R = Robinhood()
 d = R.get_dividends()
 
-#t = d.to_dict("records")
-
-
-divs = [(d[record]["ticker"],
-        record,
-        d[record]["amount"],
-)
-        for record in d
-        ]
-
 print(divs)
 #robin_stocks.stocks.get_historicals - use this for graphs

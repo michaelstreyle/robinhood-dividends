@@ -76,10 +76,18 @@ class Command(BaseCommand):
         Holdings.objects.all().delete()
         Dividends.objects.all().delete()
 
-        #instantiate a Robinhood Class instance
-        R = Robinhood()
-        holdings = R.get_holdings_df()
-        tickers_owned = holdings.index
+        if options['mock']:
+            print('this would be fake data')
+            holdings = pd.DataFrame()
+            tickers_owned = []
+            dividends = {}
+        else:
+            #instantiate a Robinhood Class instance
+            R = Robinhood()
+            holdings = R.get_holdings_df()
+            tickers_owned = holdings.index
+            # get our dividend history
+            dividends = R.get_dividends()
 
         # add stocks in our portfolio to the Tickers model
         Tickers.objects.bulk_create(
@@ -102,8 +110,6 @@ class Command(BaseCommand):
         ]
         Holdings.objects.bulk_create(instances)
 
-        # get our dividend history
-        dividends = R.get_dividends()
         # add dividend stocks to ticker model if not already there
         # this is because I may have dividend history for a stock no longer in my portfolio
         for i in dividends:
