@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'robinhood',
-         'USER' : 'postgres',
-         'PASSWORD' : 'redfred',
+         'USER' : os.getenv('SQL_USERNAME'),
+         'PASSWORD' : os.getenv('SQL_PASSWORD'),
         'HOST' : 'localhost',
         'PORT' : '5432',
     }
