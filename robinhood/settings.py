@@ -25,7 +25,7 @@ SECRET_KEY = 'n8ycg%hikr5c9j4fs*at!ac&zdo61(egy1iv0wi*h^yz2n=#(5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['robinhood-django.uc.r.appspot.com']
+ALLOWED_HOSTS = ['robinhood-django.uc.r.appspot.com', '127.0.0.1']
 
 
 # Application definition
