@@ -63,7 +63,8 @@ class Robinhood():
         return div_summary
 
     def show_value(self):
-        return {'equity': self.portfolio['equity'], 'cash':self.portfolio['cash']}
+        today = datetime.today().strftime('%Y-%m-%d') #'2020-03-11'
+        return {'date':today, 'equity': self.portfolio['equity'], 'cash':self.portfolio['cash']}
 
 
 
@@ -100,7 +101,7 @@ class Command(BaseCommand):
                 '2019-02-15': {'ticker': 'AAPL', 'amount': '4.26', 'rate': '0.355', 'position': '12'},
                 '2019-02-15': {'ticker': 'IBM', 'amount': '4.26', 'rate': '0.355', 'position': '12'},
                 }
-            value = {'equity': '1000000', 'cash': '1000'}
+            value = {'date':'2020-03-11', 'equity': '1000000', 'cash': '1000'}
         else:
             #instantiate a Robinhood Class instance
             R = Robinhood()
@@ -148,6 +149,6 @@ class Command(BaseCommand):
         ]
         Dividends.objects.bulk_create(divs)
 
-        CurrentValue.objects.create(equity=value['equity'], cash=value['cash'])
+        CurrentValue.objects.create(date = value['date'], equity=value['equity'], cash=value['cash'])
 
 
