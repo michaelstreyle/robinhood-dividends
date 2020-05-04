@@ -63,7 +63,7 @@ class Robinhood():
 
 
 R = Robinhood()
-print(R.show_value())
+print(R.get_holdings_df())
 
 
 #robin_stocks.stocks.get_historicals - use this for graphs

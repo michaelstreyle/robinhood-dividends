@@ -82,11 +82,25 @@ class Command(BaseCommand):
         CurrentValue.objects.all().delete()
 
         if options['mock']:
-            print('this would be fake data')
-            holdings = pd.DataFrame()
-            tickers_owned = []
-            dividends = {}
-            value = {}
+            #print('this would be fake data')
+            #This is all made up data!
+            holdings = {'AAPL': {'price': '300', 'quantity': '200', 'average_buy_price': '200', 'equity': '33211', 'pe_ratio': '11.520900', 'name':'Apple'},\
+             'USB': {'price': '34.94', 'quantity': '15.00', 'average_buy_price': '44.8213', 'equity': '524.10', 'pe_ratio': '9.042440', 'name':'U.S. Bank'}, \
+             'INTC': {'price': '57.50', 'quantity': '15.0', 'average_buy_price': '49.9533', 'equity': '862.50','pe_ratio': '11.130900', 'name':'Intel'},
+             'DAL': {'price': '34.94', 'quantity': '15.00', 'average_buy_price': '20', 'equity': '5240.10', 'pe_ratio': '9.042440', 'name':'Delta Airlines'}, \
+             'IBM': {'price': '121.96', 'quantity': '100.00', 'average_buy_price': '122.2880', 'equity': '1219.60', 'pe_ratio': '12.071000', 'name':'International Business Machines'}}
+            holdings = pd.DataFrame.from_dict(holdings, orient='index')[['name', 'quantity', 'average_buy_price', 'price', 'pe_ratio', 'equity']]
+            tickers_owned = ['AAPL', 'T', "USB", "JNJ", "INTC", 'IBM', 'DAL', 'LNT' ]
+            dividends = {'2019-03-22': {'ticker': 'DAL', 'amount': '200', 'rate': '0.350', 'position': '5.0000'}, 
+                '2020-03-11': {'ticker': 'IBM', 'amount': '7.85', 'rate': '1.57', 'position': '5.0000'}, 
+                '2020-02-15': {'ticker': 'LNT', 'amount': '4.26', 'rate': '0.3550000000', 'position': '12.0000'},
+                '2020-02-15': {'ticker': 'LNT', 'amount': '4.26', 'rate': '0.3550000000', 'position': '12.0000'},
+                '2019-02-15': {'ticker': 'DAL', 'amount': '400', 'rate': '0.3550000000', 'position': '12.0000'},
+                '2019-02-15': {'ticker': 'LNT', 'amount': '4.26', 'rate': '0.3550000000', 'position': '12.0000'},
+                '2019-02-15': {'ticker': 'AAPL', 'amount': '4.26', 'rate': '0.3550000000', 'position': '12.0000'},
+                '2019-02-15': {'ticker': 'IBM', 'amount': '4.26', 'rate': '0.3550000000', 'position': '12.0000'},
+                }
+            value = {'equity': '1000000', 'cash': '1000'}
         else:
             #instantiate a Robinhood Class instance
             R = Robinhood()

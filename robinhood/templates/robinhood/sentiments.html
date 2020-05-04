@@ -27,7 +27,7 @@
         <div class="navbar-nav ml-auto">
           <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
           <a class="nav-item nav-link" href="{% url 'dividends' %}">Dividends</a>
-          <a class="nav-item nav-link" href="{% url 'sentiments' %}">Sentiments</a>
+          <a class="nav-item nav-link" href="{% url 'Recommendations' %}">Recommendations</a>
           <a class="nav-item nav-link" href="http://twitter.com/MichaelStreyle">Twitter</a>
         </div>
       </div>
@@ -38,26 +38,17 @@
 
     <section class="jumbotron text-center"  style="background-color:rgb(39, 189, 47);">
       <div class="container">
-        <h1 class="jumbotron-heading">Sentiments</h1>
+        <h1 class="jumbotron-heading">Recommendations</h1>
         <p class="lead text-muted">woohoo</p>
       </div>
     </section>
 
     <div class="album py-5 bg-dark">
       <div class="container">
-        <h2 style="text-align:center;color:white">Check out what people are saying on Twitter</h2>
+        <h2 style="text-align:center;color:white">See where you can add shares to get more dividends!</h2>
         <br>
         <div class="row">
 
-          {% for stock in dividends.all %}
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <div class="card-body">
-                <p class="card-text">{{ stock }}</p>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
 
 
         </div>

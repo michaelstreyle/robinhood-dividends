@@ -39,3 +39,5 @@ class Dividends(models.Model):
 class CurrentValue(models.Model):
     equity = models.FloatField()
     cash = models.FloatField()
+
+    

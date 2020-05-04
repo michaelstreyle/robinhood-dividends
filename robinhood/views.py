@@ -15,7 +15,7 @@ def home(request):
     # queryset = Holdings.objects.all()
     # serializer_class = HoldingsSerializer
     value = CurrentValue.objects
-    holdings = Holdings.objects
+    holdings = Holdings.objects.order_by('-equity')
     return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value})
 
 
@@ -35,5 +35,5 @@ def dividends(request):
 
 
 
-def sentiments(request):
-    return ''
+def Recommendations(request):
+    return render(request, 'robinhood/sentiments.html', {})
