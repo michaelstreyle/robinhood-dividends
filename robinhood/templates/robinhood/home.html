@@ -53,8 +53,8 @@
           <div class="col-md-10">
             <div class="card mb-4 box-shadow">
               <div class="card-body">
-                <h3 class="card-text"> Account Value:   $ {{ account.equity }} </h3>
-                <h3 class="card-text"> Cash:   $ {{ account.cash }} </h3>
+                <h3 class="card-text"> Account Value:   $ {{ account.equity |floatformat:2}} </h3>
+                <h3 class="card-text"> Cash:   $ {{ account.cash |floatformat:2}} </h3>
               </div>
             </div>
           </div>
@@ -76,10 +76,10 @@
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
               <div class="card-body">
-                <h4 class="card-text">{{ stock.ticker }} : {{ stock.current_price }} </h4>
-                <p class="card-text"> Equity: {{ stock.equity }} </p>
-                <p class="card-text"> Quantity: {{ stock.quantity }} </p>
-                <p class="card-text">Avg Cost: {{ stock.avg_cost }} </p>
+                <h4 class="card-text">{{ stock.ticker }} : {{ stock.current_price |floatformat:2}} </h4>
+                <p class="card-text"> Equity: {{ stock.equity |floatformat:2}} </p>
+                <p class="card-text"> Quantity: {{ stock.quantity |floatformat:2}} </p>
+                <p class="card-text">Avg Cost: {{ stock.avg_cost |floatformat:2}} </p>
               </div>
             </div>
           </div>

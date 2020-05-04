@@ -48,7 +48,7 @@
 
     <div class="album py-5 bg-dark">
           {% for y in dividends_year.all %}
-            <h3 style="text-align:center;color:white"> Total Dividend Income in {{y.year}} is ${{y.yearsum}}</h3>  
+            <h3 style="text-align:center;color:white"> Total Dividend Income in {{y.year}} is ${{y.yearsum |floatformat:2}}</h3>  
           {% endfor %}
       <div class="container">
         <br>
@@ -63,7 +63,7 @@
             <div class="card mb-4 box-shadow">
               <div class="card-body">
                 <h3> {{ stock.ticker__ticker }} </h3>
-                <p class="card-text"> $ {{stock.yearlysum }} </p>
+                <p class="card-text"> $ {{stock.yearlysum |floatformat:2}} </p>
               </div>
             </div>
           </div>

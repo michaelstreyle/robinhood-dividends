@@ -1,0 +1,4 @@
+cron:
+- description: "daily load portfolio"
+  url: /robinhood/
+  schedule: every 5 minutes
