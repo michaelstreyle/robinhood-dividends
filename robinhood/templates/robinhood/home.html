@@ -49,16 +49,18 @@
         <br>
         <div class="row ">
 
-          {% for account in value.all %}
           <div class="col-md-10">
             <div class="card mb-4 box-shadow">
               <div class="card-body">
-                <h3 class="card-text"> Account Value:   $ {{ account.equity |floatformat:2}} </h3>
-                <h3 class="card-text"> Cash:   $ {{ account.cash |floatformat:2}} </h3>
+                {% with value.all|first as first_object %}
+                <h3 class="card-text"> Account Value:   $ {{ first_object.equity }} </h3>                         
+                <h3 class="card-text"> Cash:   $ {{ first_object.cash }} </h3> <!-- |floatformat:2-->
+                {% endwith %} 
+                
               </div>
             </div>
           </div>
-          {% endfor %}
+
 
 
         </div>

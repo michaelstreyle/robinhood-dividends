@@ -80,7 +80,7 @@ class Command(BaseCommand):
         Tickers.objects.all().delete()
         Holdings.objects.all().delete()
         Dividends.objects.all().delete()
-        CurrentValue.objects.all().delete()
+        #CurrentValue.objects.all().delete()
 
         if options['mock']:
             #print('this would be fake data')
@@ -101,7 +101,7 @@ class Command(BaseCommand):
                 '2019-02-15': {'ticker': 'AAPL', 'amount': '4.26', 'rate': '0.355', 'position': '12'},
                 '2019-02-15': {'ticker': 'IBM', 'amount': '4.26', 'rate': '0.355', 'position': '12'},
                 }
-            value = {'date':'2020-03-11', 'equity': '1000000', 'cash': '1000'}
+            value = {'date':'2021-04-03', 'equity': '6666', 'cash': '6666'}
         else:
             #instantiate a Robinhood Class instance
             R = Robinhood()

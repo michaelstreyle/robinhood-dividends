@@ -14,7 +14,7 @@ from .models import Tickers, Holdings, Dividends, CurrentValue
 def home(request):
     # queryset = Holdings.objects.all()
     # serializer_class = HoldingsSerializer
-    value = CurrentValue.objects
+    value = CurrentValue.objects.order_by('-date')
     holdings = Holdings.objects.order_by('-equity')
     return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value})
 
