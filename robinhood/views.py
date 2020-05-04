@@ -16,7 +16,15 @@ def home(request):
     # serializer_class = HoldingsSerializer
     value = CurrentValue.objects.order_by('-date')
     holdings = Holdings.objects.order_by('-equity')
-    return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value})
+    labels = []
+    data = []
+
+    for day in CurrentValue.objects.order_by('date'):
+        labels.append(day.date)
+        data.append(day.equity)
+    
+    data = [list(i) for i in zip(labels, data)]
+    return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value, 'data':data})
 
 
 
