@@ -37,11 +37,7 @@ class Dividends(models.Model):
         return 'Dividend Payment on %s from %s' % (self.date, self.ticker)
 
 class CurrentValue(models.Model):
-<<<<<<< HEAD
-    #date = models.DateField()
-=======
     date = models.DateField(default='2020-01-01', unique=True) #this format '2020-03-11'
->>>>>>> trackvalue
     equity = models.FloatField()
     cash = models.FloatField()
 

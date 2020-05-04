@@ -103,11 +103,7 @@ class Command(BaseCommand):
                 '2019-02-15': {'ticker': 'AAPL', 'amount': '4.26', 'rate': '0.355', 'position': '12'},
                 '2019-02-15': {'ticker': 'IBM', 'amount': '4.26', 'rate': '0.355', 'position': '12'},
                 }
-<<<<<<< HEAD
-            value = {'equity': '3000000', 'cash': '100'}
-=======
             value = {'date':'2021-04-03', 'equity': '6666', 'cash': '6666'}
->>>>>>> trackvalue
         else:
             #instantiate a Robinhood Class instance
             R = Robinhood()
