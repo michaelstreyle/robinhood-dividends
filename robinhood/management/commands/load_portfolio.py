@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd 
 import robin_stocks
-
+from datetime import datetime
 from django.core.management import BaseCommand
 from django.db import transaction
 from ...models import Tickers, Holdings, Dividends, CurrentValue
@@ -80,7 +80,7 @@ class Command(BaseCommand):
         Tickers.objects.all().delete()
         Holdings.objects.all().delete()
         Dividends.objects.all().delete()
-        #CurrentValue.objects.all().delete()
+        CurrentValue.objects.all().delete()
 
         if options['mock']:
             #print('this would be fake data')
