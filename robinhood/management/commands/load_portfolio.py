@@ -6,8 +6,32 @@ import robin_stocks
 from datetime import datetime
 from django.core.management import BaseCommand
 from django.db import transaction
+from google.cloud import ndb
+
 from ...models import Tickers, Holdings, Dividends, CurrentValue
 
+
+class Settings(ndb.Model):
+    name = ndb.StringProperty()
+    value = ndb.StringProperty()
+    
+    @staticmethod
+    def get(name):
+        client = ndb.Client()
+        with client.context():
+            NOT_SET_VALUE = "NOT SET"
+            retval = Settings.query(Settings.name == name).get()
+            if not retval:
+                retval = Settings()
+                retval.name = name
+                retval.value = NOT_SET_VALUE
+                retval.put()
+            if retval.value == NOT_SET_VALUE:
+                raise Exception(('Setting %s not found in the database. A placeholder ' +
+                    'record has been created. Go to the Developers Console for your app ' +
+                    'in App Engine, look up the Settings record with name=%s and enter ' +
+                    'its value in that record\'s value field.') % (name, name))
+            return retval.value
 
 
 
@@ -17,8 +41,10 @@ class Robinhood():
 
     """
     def __init__(self):
-        self.username = os.getenv('ROBIN_USERNAME')
-        self.password = os.getenv('ROBIN_PASSWORD')
+        #self.username = os.getenv('ROBIN_USERNAME')
+        #self.password = os.getenv('ROBIN_PASSWORD')
+        self.username = Settings.get('ROBIN_USERNAME')
+        self.password = Settings.get('ROBIN_PASSWORD')
         robin_stocks.login(self.username, self.password)
         self.holdings = robin_stocks.build_holdings()
         self.portfolio = robin_stocks.build_user_profile()
@@ -65,6 +91,8 @@ class Robinhood():
     def show_value(self):
         today = datetime.today().strftime('%Y-%m-%d') #'2020-03-11'
         return {'date':today, 'equity': self.portfolio['equity'], 'cash':self.portfolio['cash']}
+
+
 
 
 

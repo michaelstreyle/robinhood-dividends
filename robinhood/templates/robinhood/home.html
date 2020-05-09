@@ -50,6 +50,9 @@
         <br>
         <form action="#" method="get">
           <input type="submit" class="btn" value="Update" name="update">
+          {% if update.errors %}
+            <input type="text" name="sms_code">
+          {% endif %}
          </form>
         
       </div>
