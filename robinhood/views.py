@@ -5,6 +5,7 @@ from django.db.models.functions import ExtractYear
 from django.db.models import F, Sum, Count
 from django.db.models.functions import Cast
 from django.db.models import FloatField
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .models import Tickers, Holdings, Dividends, CurrentValue
@@ -21,11 +22,12 @@ def home(request):
     data = []
 
     for day in CurrentValue.objects.order_by('date'):
-        labels.append(day.date)
+        labels.append(day.date.strftime("%Y-%m-%d"))
         data.append(day.equity)
     
-    data = [list(i) for i in zip(labels, data)]
-    return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value, 'data':data})
+    #plot_data = [labels, data]
+
+    return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value, 'labels': labels, 'data':data})
 
 
 @login_required

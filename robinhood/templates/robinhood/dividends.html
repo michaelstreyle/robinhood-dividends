@@ -53,7 +53,8 @@
 
     <div class="album py-5 bg-dark">
           {% for y in dividends_year.all %}
-            <h3 style="text-align:center;color:white"> Total Dividend Income in {{y.year}} is ${{y.yearsum |floatformat:2}}</h3>  
+          {% load l10n %}
+            <h3 style="text-align:center;color:white"> Total Dividend Income in {{y.year|unlocalize}} is ${{y.yearsum |floatformat:2}}</h3>  
           {% endfor %}
       <div class="container">
         <br>

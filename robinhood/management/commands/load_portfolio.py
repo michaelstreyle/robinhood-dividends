@@ -80,7 +80,7 @@ class Command(BaseCommand):
         Tickers.objects.all().delete()
         Holdings.objects.all().delete()
         Dividends.objects.all().delete()
-        CurrentValue.objects.all().delete()
+        #CurrentValue.objects.all().delete()
 
         if options['mock']:
             #print('this would be fake data')
