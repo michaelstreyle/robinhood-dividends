@@ -23,7 +23,11 @@ def home(request):
     labels = []
     data = []
     if (request.GET.get('update')):
+        # try:
         management.call_command("load_portfolio", mock=True)
+        # except:
+        #     request.GET.get('sms_code')
+        #     management.call_command("load_portfolio", mock=True)
     for day in CurrentValue.objects.order_by('date'):
         labels.append(day.date.strftime("%Y-%m-%d"))
         data.append(day.equity)
