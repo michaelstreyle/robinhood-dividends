@@ -6,3 +6,4 @@ admin.site.register(Tickers)
 admin.site.register(Holdings)
 admin.site.register(Dividends)
 admin.site.register(CurrentValue)
+

@@ -8,6 +8,7 @@ from django.db.models import FloatField
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
+from django.core import management
 from .models import Tickers, Holdings, Dividends, CurrentValue
 #from .serializers import TickerSerializer, HoldingsSerializer, DividendsSerializer 
 
@@ -16,16 +17,16 @@ from .models import Tickers, Holdings, Dividends, CurrentValue
 def home(request):
     # queryset = Holdings.objects.all()
     # serializer_class = HoldingsSerializer
+    #management.call_command("load_portfolio")
     value = CurrentValue.objects.order_by('-date')
     holdings = Holdings.objects.order_by('-equity')
     labels = []
     data = []
-
+    if (request.GET.get('update')):
+        management.call_command("load_portfolio")
     for day in CurrentValue.objects.order_by('date'):
         labels.append(day.date.strftime("%Y-%m-%d"))
         data.append(day.equity)
-    
-    #plot_data = [labels, data]
 
     return render(request, 'robinhood/home.html', {'holdings':holdings, 'value':value, 'labels': labels, 'data':data})
 

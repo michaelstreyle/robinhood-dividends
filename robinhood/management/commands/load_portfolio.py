@@ -115,7 +115,7 @@ class Command(BaseCommand):
 
         # add stocks in our portfolio to the Tickers model
         Tickers.objects.bulk_create(
-            [Tickers(ticker=record) for record in tickers_owned]
+            [Tickers(ticker=record) for record in tickers_owned if record not in Tickers.objects.all()]
         )        
         holdings['ticker'] = holdings.index
 

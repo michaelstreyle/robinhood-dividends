@@ -47,6 +47,11 @@
       <div class="container">
         <h1 class="jumbotron-heading">Robinhood Dividend Investing Overview</h1> <br>
         <p class="lead text-muted">Welcome to my dividend investing portal, where there is no temptation to sell!</p>
+        <br>
+        <form action="#" method="get">
+          <input type="submit" class="btn" value="Update" name="update">
+         </form>
+        
       </div>
     </section>
 
@@ -107,7 +112,6 @@ var ctx = document.getElementById("myChart").getContext("2d");
 var myBarChart = new Chart(ctx).Line(data, {
     //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
     scaleBeginAtZero : true,
-
     //Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines : true,
 
@@ -134,7 +138,9 @@ var myBarChart = new Chart(ctx).Line(data, {
 
     //Number - Spacing between data sets within X values
     barDatasetSpacing : 1,
+
 });
+
 </script>
       </body>
 
