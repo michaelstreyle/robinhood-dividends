@@ -14,6 +14,7 @@ This project aims to build a Django web application that uses the Robhinhood API
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+
 - [Requirements and Dependencies](#requirements-and-dependencies)
 - [Robinhood Class](#robinhood-class)
 - [Database](#database)
@@ -23,6 +24,7 @@ This project aims to build a Django web application that uses the Robhinhood API
   - [Login and Logout](#login-and-logout)
 - [Deployment to GCP](#deployment-to-gcp)
   - [Viewing the Deployment](#viewing-the-deployment)
+
 - [Resources](#resources)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,11 +43,14 @@ This project used several requirements and dependencies.
     - App Engine
     - DataStore
     - Google Cloud Storage Bucket
+
     - [ndb from google.cloud](https://cloud.google.com/appengine/docs/standard/python3/migrating-to-cloud-ndb)
+
 - [Django 3](https://www.djangoproject.com/)
 
 
 *required by future features
+
 
 ## Robinhood Class
 
@@ -141,6 +146,7 @@ Username: csci-e-29
 Password: First 8 characters of CSCI_SALT found in Canvas 
 
 (Pset3-Student Embeddings Assignment - "3......5")
+
 
 
 
