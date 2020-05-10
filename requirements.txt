@@ -17,3 +17,4 @@ coreapi
 python-twitter
 psycopg2-binary
 PyMySQL==0.9.3
+google-cloud-ndb

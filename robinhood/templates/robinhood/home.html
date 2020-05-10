@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+
   {% load static %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,6 +31,11 @@
           <a class="nav-item nav-link" href="{% url 'dividends' %}">Dividends</a>
           <a class="nav-item nav-link" href="{% url 'Recommendations' %}">Recommendations</a>
           <a class="nav-item nav-link" href="http://twitter.com/MichaelStreyle">Twitter</a>
+          {% if user.is_authenticated %}
+          <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+          {% else %}
+          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+          {% endif %}
         </div>
       </div>
     </nav>
@@ -38,36 +45,115 @@
 
     <section class="jumbotron text-center"  style="background-color:rgb(39, 189, 47);">
       <div class="container">
-        <h1 class="jumbotron-heading">Robinhood Dividend Investing Overview</h1>
+        <h1 class="jumbotron-heading">Robinhood Dividend Investing Overview</h1> <br>
         <p class="lead text-muted">Welcome to my dividend investing portal, where there is no temptation to sell!</p>
+        <br>
+        <form action="#" method="get">
+          <input type="submit" class="btn" value="Update" name="update">
+          <!-- <input type="text" name="sms_code"> -->
+         </form>
+        
       </div>
     </section>
 
     <div class="album py-5 bg-dark">
       <div class="container">
-        <h2 style="text-align:center;color:white">Total Value</h2>
+        <h1 style="text-align:center;color:white">Portfolio Value</h1>
         <br>
         <div class="row ">
 
-          {% for account in value.all %}
           <div class="col-md-10">
             <div class="card mb-4 box-shadow">
               <div class="card-body">
-                <h3 class="card-text"> Account Value:   $ {{ account.equity |floatformat:2}} </h3>
-                <h3 class="card-text"> Cash:   $ {{ account.cash |floatformat:2}} </h3>
+                {% with value.all|first as first_object %}
+                {% load l10n %}
+                {% localize on %}
+                <h3 class="card-text"> Current Value:   $ {{ first_object.equity}} </h3>                         
+                <h3 class="card-text"> Current Cash:   $ {{ first_object.cash }} </h3> <!-- |floatformat:2-->
+                {% endlocalize %}
+                {% endwith %} 
+                
               </div>
             </div>
           </div>
-          {% endfor %}
-
-
         </div>
       </div>
     </div>
 
 
+    <html>
+      <head>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+      </head>
+      <body>
+
+            <div class="center" style="text-align:center; float:center;">
+              <br/>
+              <canvas id="myChart" width="1200" height="400"></canvas>
+            </div>
+          
+          <script>
+var data = {
+    labels: {{ labels|safe }},
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(42, 115, 42,0.7)",
+            strokeColor: "rgba(147, 240, 147,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: {{ data|safe }}
+        },
+    ]
+};
+
+var ctx = document.getElementById("myChart").getContext("2d");
+var myBarChart = new Chart(ctx).Line(data, {
+    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+    scaleBeginAtZero : true,
+    //Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines : true,
+
+    //String - Colour of the grid lines
+    scaleGridLineColor : "rgba(0, 0, 0, .2)",
+
+    //Number - Width of the grid lines
+    scaleGridLineWidth : 1,
+
+    //Boolean - Whether to show horizontal lines (except X axis)
+    scaleShowHorizontalLines: true,
+
+    //Boolean - Whether to show vertical lines (except Y axis)
+    scaleShowVerticalLines: true,
+
+    //Boolean - If there is a stroke on each bar
+    barShowStroke : true,
+
+    //Number - Pixel width of the bar stroke
+    barStrokeWidth : 2,
+
+    //Number - Spacing between each of the X value sets
+    barValueSpacing : 5,
+
+    //Number - Spacing between data sets within X values
+    barDatasetSpacing : 1,
+
+});
+
+</script>
+      </body>
+
+
+
+
+
+
     <div class="album py-5 bg-dark">
       <div class="container">
+        <br>
+        <br>
         <h2 style="text-align:center;color:white">Current Holdings</h2>
         <br>
         <div class="row">

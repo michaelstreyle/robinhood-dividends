@@ -129,3 +129,5 @@ dmypy.json
 junk.py
 **/junk.py
 */junk.py
+cloud_sql_proxy
+app.yaml

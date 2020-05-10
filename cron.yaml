@@ -1,4 +1,5 @@
 cron:
-- description: "daily load portfolio"
-  url: /robinhood/
+- description: "test load portfolio"
+  url: /?update#
   schedule: every 5 minutes
+

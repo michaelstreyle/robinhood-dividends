@@ -29,6 +29,11 @@
           <a class="nav-item nav-link" href="{% url 'dividends' %}">Dividends</a>
           <a class="nav-item nav-link" href="{% url 'Recommendations' %}">Recommendations</a>
           <a class="nav-item nav-link" href="http://twitter.com/MichaelStreyle">Twitter</a>
+          {% if user.is_authenticated %}
+          <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+          {% else %}
+          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+          {% endif %}
         </div>
       </div>
     </nav>

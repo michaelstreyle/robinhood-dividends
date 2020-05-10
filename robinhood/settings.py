@@ -25,13 +25,14 @@ SECRET_KEY = 'n8ycg%hikr5c9j4fs*at!ac&zdo61(egy1iv0wi*h^yz2n=#(5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['robinhood-django.uc.r.appspot.com']
+ALLOWED_HOSTS = ['robinhood-django.uc.r.appspot.com', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'robinhood.apps.RobinhoodConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,10 +53,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'robinhood.urls'
 
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,6 +142,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
 
 USE_TZ = True
 
