@@ -59,7 +59,14 @@ The following methods are included in the Robinhood Class:
 
 The methods allow you to authenticate once, before using any of the methods. 
 
+This class will be used to connect to Robinhood and populate the database for the DJango webapp.
 
+
+## Database
+
+The database for this project consists of a star schema and an independent table to track the portfolio value. 
+
+![Database Schema](/robinhood/templates/robinhood/database.png)
 
 
 
