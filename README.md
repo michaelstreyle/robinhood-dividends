@@ -66,7 +66,41 @@ This class will be used to connect to Robinhood and populate the database for th
 
 The database for this project consists of a star schema and an independent table to track the portfolio value. 
 
-![Database Schema](/robinhood/templates/robinhood/database.png)
+![Database Schema](/images/database.png)
+
+
+
+## Django Web Framework Overview
+
+The web application has a home page, dividends page, recommendations page, as well as a Twitter link. 
+
+### Home
+
+At the top of the Home page is an Update button. This is discussed further down, but allows the data to be updated in the database and is also used by the cronjob to automatically update the data daily. The Home page also displays the current value of the portfolio as well as the current cash available. Then below the current value, there is a chart which displays the portfolio value over time. Finally, below the chart is an overview of the current holdings in the portfolio, including the tickers, current price, average cost, quantity, and current equity (current price x quantity). The holdings are sorted by highest equity.  
+
+Here is a screenshot which shows an (zoomed out) overview of the home page. 
+![Home](/images/home.png)
+
+
+### Dividends
+
+The main weakness in the Robinhood website/app is that it is quite difficult to find out a summary of the dividend payments you have received. This is quite a simple task, but something that is really useful to keep track of. This was the motivation behind the dividends page, which displays the dividend totals per year as well as the total dividends broken down by the Ticker symbols. Eventually, it would be cool to include a plot here, similar to the home page, but for yearly dividend income. However, that is not included here because there is not currently enough dividend history to create any usefulness from a plot. 
+
+Here is a screenshot which shows an overview of the dividends page. 
+![Dividends](/images/dividend.png)
+
+
+### Login and Logout
+
+One important aspect of this Django site is creating a login and logout page for user authentication. I learned several things while adding this functionality to my site including:
+
+- Creating a login page
+- Adding Login/Logout buttons to the Nav bar (changing to login/logout based on status)
+- Managing user accounts 
+- Requiring login before visiting pages with sensitive information
+    - Using the @login_required decorator from Django in views.py
+
+![Login](/images/login.png)
 
 
 
