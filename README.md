@@ -73,7 +73,9 @@ The link to the live deployment is [here](https://robinhood-django.uc.r.appspot.
 
 
 Username: csci-e-29
+
 Password: First 8 characters of CSCI_SALT found in Canvas 
+
 (Pset3-Student Embeddings Assignment - "3......5")
 
 
