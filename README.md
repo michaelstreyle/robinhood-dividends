@@ -61,6 +61,19 @@ The methods allow you to authenticate once, before using any of the methods.
 
 
 
+
+## Viewing the Live App
+
+I have created a login for those who are in my Advanced Python course and want to take a look at the deployed application...
+
+The link to the live deployment is [here](https://robinhood-django.uc.r.appspot.com/)
+
+**Login Credentials**
+Username: csci-e-29
+Password: First 8 characters of CSCI_SALT found in Canvas (Pset3-Student Embeddings Assignment - "3......5")
+
+
+
 ## Resources
 
 - [Running Django on App Engine](https://cloud.google.com/python/django/appengine)
