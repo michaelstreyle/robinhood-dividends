@@ -5,6 +5,8 @@
 
 This project aims to build a Django web application that uses the Robhinhood API to access a user's portfolio and summarize the portfolio's holdings and dividend history. The application is hosted publicly on Google Cloud Platform using a Standard App Engine environment. The project serves as addtional practice with some of the Django functionality we learned in class, as well as diving deeper into more advanced webpages. 
 
+*Disclaimer: I am new to Django/web development (other than pset6) and new to GCP, so some of the solutions used may not be the most efficient. Any and all suggestions welcome in that regard :)
+
 ## Important Notes
 
 
@@ -14,7 +16,13 @@ This project aims to build a Django web application that uses the Robhinhood API
 
 - [Requirements and Dependencies](#requirements-and-dependencies)
 - [Robinhood Class](#robinhood-class)
-- [Viewing the Deployment](#viewing-the-deployment)
+- [Database](#database)
+- [Django Web Framework Overview](#django-web-framework-overview)
+  - [Home](#home)
+  - [Dividends](#dividends)
+  - [Login and Logout](#login-and-logout)
+- [Deployment to GCP](#deployment-to-gcp)
+  - [Viewing the Deployment](#viewing-the-deployment)
 - [Resources](#resources)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -33,6 +41,7 @@ This project used several requirements and dependencies.
     - App Engine
     - DataStore
     - Google Cloud Storage Bucket
+    - [ndb from google.cloud](https://cloud.google.com/appengine/docs/standard/python3/migrating-to-cloud-ndb)
 - [Django 3](https://www.djangoproject.com/)
 
 
@@ -76,7 +85,7 @@ The web application has a home page, dividends page, recommendations page, as we
 
 ### Home
 
-At the top of the Home page is an Update button. This is discussed further down, but allows the data to be updated in the database and is also used by the cronjob to automatically update the data daily. The Home page also displays the current value of the portfolio as well as the current cash available. Then below the current value, there is a chart which displays the portfolio value over time. Finally, below the chart is an overview of the current holdings in the portfolio, including the tickers, current price, average cost, quantity, and current equity (current price x quantity). The holdings are sorted by highest equity.  
+At the top of the Home page is an Update button. This is discussed further down, but allows the data to be updated in the database and is also used by the cronjob to automatically update the data daily. The Home page also displays the current value of the portfolio as well as the current cash available. Then below the current value, there is a chart which displays the portfolio value over time. Finally, below the chart is an overview of the current holdings in the portfolio, including the tickers, current price, average cost, quantity, and current equity (current price x quantity). The holdings are sorted by highest equity.  I used a management command to load the portfolio into the database, and also included a --mock option to load fake data (seen in all these screenshots) for testing purposes. 
 
 Here is a screenshot which shows an (zoomed out) overview of the home page. 
 ![Home](/images/home.png)
@@ -104,7 +113,21 @@ One important aspect of this Django site is creating a login and logout page for
 
 
 
-## Viewing the Deployment
+## Deployment to GCP 
+
+
+This application is really only useful if I am able to use it on a device such as my phone or windows laptop (rather than linux desktop), so the biggest piece of this project that I was especially interested in working through was deploying my Django project to Google Cloud Platform. I decided to use GCP's Standard App Environment to deploy the application and a Cloud SQL MySQL server to host the database. Because Robinhood's API is still somewhat unofficial, there is not yet a great way to handle authentication other than using the username and password, which meant I had to find a way to securely store my credentials.
+
+Several challenges arose during this deployment including:
+
+- Securely managing my Robinhood Credentials
+    - Solution: Using GCP's DataStore to store the credentials and a Settings class to retrieve the credentials from DataStore. This relies on Cloud NDB client library for Python 3. This turned into a rather elegant solution that I was glad to learn about because it exposed me to another GCP service. 
+- Using App Engine Cron Jobs to update the database daily
+    - This issue is what led to the creation of the Update button on the home page. This endpoint is what the cronjob uses to update the database on a daily basis
+
+![Datastore](/images/datastore.png)
+
+### Viewing the Deployment
 
 I have created a login for those who are in my Advanced Python course and want to take a look at the deployed application...
 

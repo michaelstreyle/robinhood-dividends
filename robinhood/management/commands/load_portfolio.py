@@ -12,6 +12,12 @@ from ...models import Tickers, Holdings, Dividends, CurrentValue
 
 
 class Settings(ndb.Model):
+    """This is a class to retrieve credentials from DataStore
+
+    Example Usage: Settings.get('ROBIN_USERNAME')
+
+
+    """
     name = ndb.StringProperty()
     value = ndb.StringProperty()
     
